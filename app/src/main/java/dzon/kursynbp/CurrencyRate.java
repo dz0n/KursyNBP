@@ -23,4 +23,23 @@ public class CurrencyRate {
     public BigDecimal getRate() {
         return rate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CurrencyRate that = (CurrencyRate) o;
+
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        return rate != null ? rate.equals(that.rate) : that.rate == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = date != null ? date.hashCode() : 0;
+        result = 31 * result + (rate != null ? rate.hashCode() : 0);
+        return result;
+    }
 }

@@ -59,19 +59,10 @@ class NbpATableCurrentExchangeRates implements CurrentExchangeRates {
         } catch(ParseException e) {
             throw new IOException("Incorrect data in API - wrong date format.", e);
         } catch(JSONException e) {
-            Log.d("logging", e.getMessage());
-            Log.d("logging", e.getStackTrace().toString());
             throw new IOException("Incorrect structure of API's data.", e);
         } catch(IOException e) {
             throw new IOException("Failed to download current exchange rates.", e);
         }
-    }
-
-    private JSONArray getRatesFromJsonText(String jsonText) throws JSONException {
-        JSONArray dayTables = new JSONArray(jsonText);
-        JSONObject dayTable = dayTables.getJSONObject(0);
-
-        return dayTable.getJSONArray(jsonRatesField);
     }
 
     private String getJsonTextFromNbpApi() throws IOException {
@@ -89,6 +80,13 @@ class NbpATableCurrentExchangeRates implements CurrentExchangeRates {
         String dateText = dayTable.getString(jsonDateField).toString();
 
         return convertToDate(dateText);
+    }
+
+    private JSONArray getRatesFromJsonText(String jsonText) throws JSONException {
+        JSONArray dayTables = new JSONArray(jsonText);
+        JSONObject dayTable = dayTables.getJSONObject(0);
+
+        return dayTable.getJSONArray(jsonRatesField);
     }
 
     private Date convertToDate(String textDate) throws ParseException {
