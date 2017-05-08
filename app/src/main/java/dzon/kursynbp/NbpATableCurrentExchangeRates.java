@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.List;
 
 class NbpATableCurrentExchangeRates implements CurrentExchangeRates {
-    private static NbpATableCurrentExchangeRates uniqueInstance;
-
     private final String currentRatesUrl = "http://api.nbp.pl/api/exchangerates/tables/a/?format=json";
     private final String jsonRatesField = "rates";
     private final String jsonNameField = "currency";
@@ -33,9 +31,7 @@ class NbpATableCurrentExchangeRates implements CurrentExchangeRates {
     private NbpATableCurrentExchangeRates() {}
 
     public static synchronized NbpATableCurrentExchangeRates getInstance() {
-        if(uniqueInstance == null)
-            uniqueInstance = new NbpATableCurrentExchangeRates();
-        return uniqueInstance;
+        return new NbpATableCurrentExchangeRates();
     }
 
     @Override

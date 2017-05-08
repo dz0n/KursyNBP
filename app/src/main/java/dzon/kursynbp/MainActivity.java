@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -49,18 +50,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void printCurrentExchangeRates() {
+        CurrenciesRepository favoritesRepository = new FavoritesRepository(getApplicationContext());
+        List<Currency> currencies = favoritesRepository.getAll();
+
         List<String> currenciesCodes = new ArrayList<>();
-        currenciesCodes.add("USD");
-        currenciesCodes.add("EUR");
-        currenciesCodes.add("GBP");
-        currenciesCodes.add("RUB");
-        currenciesCodes.add("UAH");
-        currenciesCodes.add("DKK");
-        currenciesCodes.add("CAD");
-        currenciesCodes.add("CZK");
-        currenciesCodes.add("HUF");
-        currenciesCodes.add("JPY");
-        currenciesCodes.add("CHF");
+        for(Currency currency : currencies) {
+            currenciesCodes.add(currency.getCode());
+        }
 
         ListView listView = (ListView) findViewById(R.id.listViewCurrentRates);
         TextView dateView = (TextView) findViewById(R.id.dateView);
@@ -68,4 +64,6 @@ public class MainActivity extends AppCompatActivity {
         CurrentRatesTask currentRatesTask = new CurrentRatesTask(listView, dateView, currenciesCodes);
         currentRatesTask.execute();
     }
+
+
 }

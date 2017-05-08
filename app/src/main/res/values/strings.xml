@@ -8,6 +8,9 @@
     <string name="title_activity_settings">Ustawienia</string>
     <string name="title_activity_main">Aktualne kursy</string>
     <string name="title_activity_history">Historia notowań</string>
+    <string name="button_refresh_text">aktualizuj listę walut</string>
+
+    <string name="receiver_refreshing_currencies_finished">refreshingCurrenciesFinished</string>
 
     <!-- Strings related to Settings -->
 

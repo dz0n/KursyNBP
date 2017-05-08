@@ -32,10 +32,8 @@ public class CurrentRatesTask extends AsyncTask<Void, Void, List<Currency>> {
 
         try {
             List<Currency> currencies = ratesDownloader.getCurrentRates();
-            Log.d("debugging", "currencies.size()=" + currencies.size());
             return currencies;
         } catch (IOException e) {
-            Log.d("debugging", e.getMessage());
             return Collections.emptyList();
         }
     }
@@ -48,6 +46,7 @@ public class CurrentRatesTask extends AsyncTask<Void, Void, List<Currency>> {
             currenciesList.add(getNoCurrenciesSet());
         } else {
             for (Currency currency : currencies) {
+                Log.d("kursy ***: ", currency.getName() + " | " + currency.getCode());
                 if (currenciesCodes.contains(currency.getCode())) {
                     currenciesList.add(currency.getCode() + ": " + currency.getRates().iterator().next().getRate() + " (" + currency.getName() + ")");
                 }
@@ -75,10 +74,18 @@ public class CurrentRatesTask extends AsyncTask<Void, Void, List<Currency>> {
     }
 
     private String getFailureText() {
-        return dateView.getContext().getString(R.string.failure_download);
+        if(listView!=null) {
+            return listView.getContext().getString(R.string.failure_download);
+        } else {
+            return "";
+        }
     }
 
     private String getNoCurrenciesSet() {
-        return dateView.getContext().getString(R.string.no_currencies);
+        if(listView!=null) {
+            return listView.getContext().getString(R.string.no_currencies);
+        } else {
+            return "";
+        }
     }
 }
