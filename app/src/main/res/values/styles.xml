@@ -21,4 +21,7 @@
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="YellowBackground">
+        <item name="android:background">#fafbea</item>
+    </style>
 </resources>

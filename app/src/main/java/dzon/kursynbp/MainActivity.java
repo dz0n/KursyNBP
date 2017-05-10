@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         CurrenciesRepository favoritesRepository = new FavoritesRepository(getApplicationContext());
         List<Currency> currencies = favoritesRepository.getAll();
 
+        Collections.sort(currencies, getComparator());
+
         List<String> currenciesCodes = new ArrayList<>();
         for(Currency currency : currencies) {
             currenciesCodes.add(currency.getCode());
@@ -65,5 +69,12 @@ public class MainActivity extends AppCompatActivity {
         currentRatesTask.execute();
     }
 
-
+    private Comparator<Currency> getComparator() {
+        return new Comparator<Currency>() {
+            @Override
+            public int compare(Currency o1, Currency o2) {
+                return o1.getCode().compareTo(o2.getCode());
+            }
+        };
+    }
 }

@@ -13,14 +13,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class FavoritesRepository implements CurrenciesRepository {
-    private final SQLiteOpenHelper dbManager;
+    private final Context context;
 
-    public FavoritesRepository(Context context) {
-        dbManager = new DatabaseManager(context);
+    public FavoritesRepository(Context context){
+        this.context = context;
     }
 
     @Override
     public void save(Currency currency) {
+        SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
         SQLiteDatabase db = dbManager.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -28,10 +29,13 @@ public class FavoritesRepository implements CurrenciesRepository {
         values.put(FavoriteCurrencies.COLUMN_NAME_CODE, currency.getCode());
 
         db.insert(FavoriteCurrencies.TABLE_NAME, null, values);
+
+        dbManager.close();
     }
 
    @Override
    public List<Currency> getAll() {
+       SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
        SQLiteDatabase db = dbManager.getReadableDatabase();
 
        String[] columns = {
@@ -62,11 +66,14 @@ public class FavoritesRepository implements CurrenciesRepository {
        }
        cursor.close();
 
+       dbManager.close();
+
        return currencies;
    }
 
    @Override
    public void delete(Currency currency) {
+       SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
        SQLiteDatabase db = dbManager.getReadableDatabase();
 
        String selection = FavoriteCurrencies.COLUMN_NAME_CODE + " LIKE ?";
@@ -74,12 +81,21 @@ public class FavoritesRepository implements CurrenciesRepository {
        String[] selectionArgs = new String[] {currency.getCode()};
 
        db.delete(FavoriteCurrencies.TABLE_NAME, selection, selectionArgs);
+
+       dbManager.close();
    }
 
     @Override
     public void deleteAll() {
+        SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
         SQLiteDatabase db = dbManager.getReadableDatabase();
 
         db.delete(FavoriteCurrencies.TABLE_NAME, null, null);
+
+        dbManager.close();
+    }
+
+    private SQLiteOpenHelper getSQLiteOpenHelper() {
+        return new DatabaseManager(context);
     }
 }

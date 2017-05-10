@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dzon.kursynbp.MainActivity">
+    tools:context="dzon.kursynbp.MainActivity"
+    style="@style/YellowBackground">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +22,6 @@
     </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
-            android:background="#fafbea"
             android:layout_width="368dp"
             android:layout_height="495dp"
             android:orientation="vertical"

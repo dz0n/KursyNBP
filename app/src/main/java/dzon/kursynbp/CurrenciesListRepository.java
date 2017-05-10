@@ -15,14 +15,15 @@ import java.util.List;
  */
 
 public class CurrenciesListRepository implements  CurrenciesRepository {
-    private final SQLiteOpenHelper dbManager;
+    private final Context context;
 
     public CurrenciesListRepository(Context context) {
-        dbManager = new DatabaseManager(context);
+        this.context = context;
     }
 
     @Override
     public void save(Currency currency) {
+        SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
         SQLiteDatabase db = dbManager.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -30,10 +31,13 @@ public class CurrenciesListRepository implements  CurrenciesRepository {
         values.put(DatabaseContract.CurrenciesList.COLUMN_NAME_CODE, currency.getCode());
 
         db.insert(DatabaseContract.CurrenciesList.TABLE_NAME, null, values);
+
+        dbManager.close();
     }
 
     @Override
     public List<Currency> getAll() {
+        SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
         SQLiteDatabase db = dbManager.getReadableDatabase();
 
         String[] columns = {
@@ -64,11 +68,14 @@ public class CurrenciesListRepository implements  CurrenciesRepository {
         }
         cursor.close();
 
+        dbManager.close();
+
         return currencies;
     }
 
     @Override
     public void delete(Currency currency) {
+        SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
         SQLiteDatabase db = dbManager.getReadableDatabase();
 
         String selection = DatabaseContract.CurrenciesList.COLUMN_NAME_CODE + " LIKE ?";
@@ -76,13 +83,22 @@ public class CurrenciesListRepository implements  CurrenciesRepository {
         String[] selectionArgs = new String[] {currency.getCode()};
 
         db.delete(DatabaseContract.CurrenciesList.TABLE_NAME, selection, selectionArgs);
+
+        dbManager.close();
     }
 
     @Override
     public void deleteAll() {
+        SQLiteOpenHelper dbManager = getSQLiteOpenHelper();
         SQLiteDatabase db = dbManager.getReadableDatabase();
 
         db.delete(DatabaseContract.CurrenciesList.TABLE_NAME, null, null);
+
+        dbManager.close();
+    }
+
+    private SQLiteOpenHelper getSQLiteOpenHelper() {
+        return new DatabaseManager(context);
     }
 }
 

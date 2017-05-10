@@ -29,4 +29,23 @@ public class Currency {
     public Collection<CurrencyRate> getRates() {
         return rates;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Currency currency = (Currency) o;
+
+        if (name != null ? !name.equals(currency.name) : currency.name != null) return false;
+        return code != null ? code.equals(currency.code) : currency.code == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        return result;
+    }
 }
