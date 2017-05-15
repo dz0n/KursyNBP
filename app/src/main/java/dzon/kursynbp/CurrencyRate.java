@@ -3,10 +3,6 @@ package dzon.kursynbp;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * Created by oem on 2017-04-10.
- */
-
 public class CurrencyRate {
     private final Date date;
     private final BigDecimal rate;

@@ -10,14 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by oem on 2017-05-06.
- */
-
-public class CurrenciesListRepository implements  CurrenciesRepository {
+class CurrenciesListRepository implements  CurrenciesRepository {
     private final Context context;
 
-    public CurrenciesListRepository(Context context) {
+    CurrenciesListRepository(Context context) {
         this.context = context;
     }
 

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import static dzon.kursynbp.DatabaseContract.*;
 
-public class DatabaseManager extends SQLiteOpenHelper {
+class DatabaseManager extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "ExchangeRates.db";
 

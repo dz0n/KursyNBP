@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-public class RefreshCurrenciesListTask extends AsyncTask<Void, Void, List<Currency>> {
+class RefreshCurrenciesListTask extends AsyncTask<Void, Void, List<Currency>> {
     private final Context context;
 
-    public RefreshCurrenciesListTask(Context context) {
+    RefreshCurrenciesListTask(Context context) {
         this.context = context;
     }
 

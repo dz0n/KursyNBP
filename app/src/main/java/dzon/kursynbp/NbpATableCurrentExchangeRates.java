@@ -1,7 +1,5 @@
 package dzon.kursynbp;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +71,7 @@ class NbpATableCurrentExchangeRates implements CurrentExchangeRates {
         JSONArray dayTables = new JSONArray(jsonText);
         JSONObject dayTable = dayTables.getJSONObject(0);
 
-        String dateText = dayTable.getString(jsonDateField).toString();
+        String dateText = dayTable.getString(jsonDateField);
 
         return convertToDate(dateText);
     }

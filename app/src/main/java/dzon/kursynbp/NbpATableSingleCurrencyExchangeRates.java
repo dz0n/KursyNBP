@@ -14,12 +14,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -76,13 +74,12 @@ public class NbpATableSingleCurrencyExchangeRates implements SingleCurrencyExcha
     }
 
     private Comparator<CurrencyRate> getComparator() {
-        Comparator<CurrencyRate> comparator = new Comparator<CurrencyRate>() {
+        return new Comparator<CurrencyRate>() {
             @Override
             public int compare(CurrencyRate comparator1, CurrencyRate comparator2) {
                 return comparator1.getDate().compareTo(comparator2.getDate());
             }
         };
-        return comparator;
     }
 
     private SortedSet<CurrencyRate> getCurrencyRates(String currencyCode, Date from, Date to) throws IOException, JSONException, ParseException {

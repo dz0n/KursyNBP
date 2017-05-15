@@ -13,13 +13,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class CurrentRatesTask extends AsyncTask<Void, Void, List<Currency>> {
+class CurrentRatesTask extends AsyncTask<Void, Void, List<Currency>> {
     private final CurrentExchangeRates ratesDownloader = NbpATableCurrentExchangeRates.getInstance();
     private final ListView listView;
     private final TextView dateView;
     private final List<String> currenciesCodes;
 
-    public CurrentRatesTask(ListView listView, TextView dateView, List<String> currenciesCodes) {
+    CurrentRatesTask(ListView listView, TextView dateView, List<String> currenciesCodes) {
         this.listView = listView;
         this.dateView = dateView;
         this.currenciesCodes = Collections.unmodifiableList(currenciesCodes);
@@ -31,8 +31,7 @@ public class CurrentRatesTask extends AsyncTask<Void, Void, List<Currency>> {
             return Collections.emptyList();
 
         try {
-            List<Currency> currencies = ratesDownloader.getCurrentRates();
-            return currencies;
+            return ratesDownloader.getCurrentRates();
         } catch (IOException e) {
             return Collections.emptyList();
         }
@@ -61,7 +60,7 @@ public class CurrentRatesTask extends AsyncTask<Void, Void, List<Currency>> {
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(listView.getContext(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(listView.getContext(),
                 android.R.layout.simple_list_item_1,
                 currenciesList);
         listView.setAdapter(adapter);

@@ -2,7 +2,6 @@ package dzon.kursynbp;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.SortedSet;
 
 interface SingleCurrencyExchangeRates {
